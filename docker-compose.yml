@@ -4,6 +4,7 @@ services:
     build: .
     image: homecentr/haraka-relay
     restart: unless-stopped
+    container_name: haraka
     ports:
       - 2525:2525
       - 9904:9904
@@ -20,6 +21,7 @@ services:
   smtp_mock:
     image: kbedel/fake-smtp-server
     command: node index.js --debug --keystore /keystore.pfx --passphrase Pass --smtpAuth some-user:some-password
+    container_name: smtp_mock
     ports:
       - "1080:1080"
     networks:
