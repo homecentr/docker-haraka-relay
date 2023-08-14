@@ -1,0 +1,6 @@
+tls
+auth/flat_file
+relay_via_external
+relay
+limit
+@mailprotector/haraka-plugin-prometheus

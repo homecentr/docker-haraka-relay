@@ -6,7 +6,7 @@ on:
   pull_request:
 
 env:
-  IMAGE_NAME: "homecentr/$$IMAGE_NAME$$"
+  IMAGE_NAME: "homecentr/haraka-relay"
 
 jobs:
   build:
@@ -24,11 +24,14 @@ jobs:
       - name: Verify Dockerfile with Hadolint
         uses: brpaz/hadolint-action@master      
 
+      - name: Install dependencies
+        run: yarn
+
       - name: Build Docker image
-        run: docker build . -t ${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.docker_tag }}
+        run: yarn build
 
       - name: Test Docker image
-        run: cd tests && sudo --preserve-env gradle test --info -Ddocker_image_tag=${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.docker_tag }}
+        run: yarn test
         env: # To allow downloading packages
           GITHUB_USERNAME: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,45 +1,42 @@
-[![Project status](https://badgen.net/badge/project%20status/stable%20%26%20actively%20maintaned?color=green)](https://github.com/homecentr/docker-$$IMAGE_NAME$$/graphs/commit-activity) [![](https://badgen.net/github/label-issues/homecentr/docker-$$IMAGE_NAME$$/bug?label=open%20bugs&color=green)](https://github.com/homecentr/docker-$$IMAGE_NAME$$/labels/bug) [![](https://badgen.net/github/release/homecentr/docker-$$IMAGE_NAME$$)](https://hub.docker.com/repository/docker/homecentr/$$IMAGE_NAME$$)
-[![](https://badgen.net/docker/pulls/homecentr/$$IMAGE_NAME$$)](https://hub.docker.com/repository/docker/homecentr/$$IMAGE_NAME$$) 
-[![](https://badgen.net/docker/size/homecentr/$$IMAGE_NAME$$)](https://hub.docker.com/repository/docker/homecentr/$$IMAGE_NAME$$)
+[![Project status](https://badgen.net/badge/project%20status/stable%20%26%20actively%20maintaned?color=green)](https://github.com/homecentr/docker-haraka-relay/graphs/commit-activity) [![](https://badgen.net/github/label-issues/homecentr/docker-haraka-relay/bug?label=open%20bugs&color=green)](https://github.com/homecentr/docker-haraka-relay/labels/bug) [![](https://badgen.net/github/release/homecentr/docker-haraka-relay)](https://hub.docker.com/repository/docker/homecentr/haraka-relay)
+[![](https://badgen.net/docker/pulls/homecentr/haraka-relay)](https://hub.docker.com/repository/docker/homecentr/haraka-relay) 
+[![](https://badgen.net/docker/size/homecentr/haraka-relay)](https://hub.docker.com/repository/docker/homecentr/haraka-relay)
 
-![CI/CD on master](https://github.com/homecentr/docker-$$IMAGE_NAME$$/workflows/CI/CD%20on%20master/badge.svg)
+![CI/CD on master](https://github.com/homecentr/docker-haraka-relay/workflows/CI/CD%20on%20master/badge.svg)
 
 
-# Homecentr - $$IMAGE_NAME$$
+# Homecentr - haraka-relay
 
 ## Usage
 
 ```yml
 version: "3.7"
 services:
-  $$IMAGE_NAME$$:
+  haraka-relay:
     build: .
-    image: homecentr/$$IMAGE_NAME$$
+    image: homecentr/haraka-relay
+    volumes:
+      - .../auth_flat_file.ini:/haraka/config/auth_flat_file.ini
+      - .../relay_via_external.ini:/haraka/config/relay_via_external.ini
+      - .../tls_cert.pem:/haraka/config/tls_cert.pem
+      - .../tls_key.pem:/haraka/config/tls_key.pem
 ```
-
-## Environment variables
-
-| Name | Default value | Description |
-|------|---------------|-------------|
-| PUID | 7077 | UID of the user $$IMAGE_NAME$$ should be running as. |
-| PGID | 7077 | GID of the user $$IMAGE_NAME$$ should be running as. |
 
 ## Exposed ports
 
 | Port | Protocol | Description |
 |------|------|-------------|
-| 80 | TCP | Some useful details |
+| 2525 | TCP | SMTP |
+| 9904 | TCP | HTTP server with Prometheus metrics |
 
 ## Volumes
 
 | Container path | Description |
 |------------|---------------|
-| /config | Some useful details |
+| /haraka | Haraka root directory |
 
 ## Security
-The container is regularly scanned for vulnerabilities and updated. Further info can be found in the [Security tab](https://github.com/homecentr/docker-$$IMAGE_NAME$$/security).
+The container is regularly scanned for vulnerabilities and updated. Further info can be found in the [Security tab](https://github.com/homecentr/docker-haraka-relay/security).
 
 ### Container user
-The container supports privilege drop. Even though the container starts as root, it will use the permissions only to perform the initial set up. The $$IMAGE_NAME$$ process runs as UID/GID provided in the PUID and PGID environment variables.
-
-:warning: Do not change the container user directly using the `user` Docker compose property or using the `--user` argument. This would break the privilege drop logic.
+The container runs as a non-root user with UID/GID 1000 by default.

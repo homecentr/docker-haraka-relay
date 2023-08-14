@@ -1,6 +1,34 @@
 version: "3.7"
 services:
-  $$IMAGE_NAME$$:
+  haraka:
     build: .
-    image: homecentr/$$IMAGE_NAME$$
+    image: homecentr/haraka-relay
     restart: unless-stopped
+    container_name: haraka
+    ports:
+      - 2525:2525
+      - 9904:9904
+    networks:
+      default:
+    volumes:
+      - ./example/auth_flat_file.ini:/haraka/config/auth_flat_file.ini
+      - ./example/relay_via_external.ini:/haraka/config/relay_via_external.ini
+      - ./example/tls_cert.pem:/haraka/config/tls_cert.pem
+      - ./example/tls_key.pem:/haraka/config/tls_key.pem
+      # To trust mocks TLS certificate
+      - "./example/smtp-mock.crt:/etc/ssl/certs/ca-certificates.crt:ro"
+
+  smtp_mock:
+    image: kbedel/fake-smtp-server
+    command: node index.js --debug --keystore /keystore.pfx --passphrase Pass --smtpAuth some-user:some-password
+    container_name: smtp_mock
+    ports:
+      - "1080:1080"
+    networks:
+      default:
+    volumes:
+      - "./example/smtp-mock.pfx:/keystore.pfx"
+    
+networks:
+  internal:
+    driver: bridge
