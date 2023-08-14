@@ -9,7 +9,7 @@ RUN npm install -g Haraka@3.0.2 && \
 WORKDIR /haraka
     
     # Install external plugins
-RUN npm install @mailprotector/haraka-plugin-prometheus --save
+RUN npm install @mailprotector/haraka-plugin-prometheus@1.0.6 --save
 
 COPY ./fs/ /
 
