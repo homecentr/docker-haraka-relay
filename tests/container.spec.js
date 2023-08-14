@@ -23,6 +23,8 @@ describe("MailRelay container should", () => {
             .withBuild()
             .up();
 
+        console.log(composeEnvironment)
+
         mailRelayContainer = composeEnvironment.getContainer("haraka-1");
         smtpMockContainer = composeEnvironment.getContainer("smtp_mock-1");
     });
