@@ -1,12 +1,15 @@
 FROM node:lts-bookworm
 
     # Install Haraka and dependencies
-RUN npm install -g Haraka && \
-    npm install -g express && \
+RUN npm install -g Haraka@3.0.2 && \
+    npm install -g express@4.18.2 && \
     # Initialize a configuration directory
-    haraka -i /haraka && \
+    haraka -i /haraka
+
+WORKDIR /haraka
+    
     # Install external plugins
-    cd /haraka && npm install @mailprotector/haraka-plugin-prometheus --save
+RUN npm install @mailprotector/haraka-plugin-prometheus --save
 
 COPY ./fs/ /
 
@@ -14,12 +17,13 @@ COPY ./fs/ /
 RUN chgrp -R node /haraka && \
     chown -R node /haraka
 
-USER node
-
 EXPOSE 2525
 EXPOSE 9904
 
 VOLUME [ "/haraka" ]
+
+WORKDIR /
+USER node
 
 ENTRYPOINT [ "haraka" ]
 CMD [ "-c", "/haraka" ]
