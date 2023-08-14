@@ -1,15 +1,29 @@
-{ 
-  "name": "homecentr-$$IMAGE_NAME$$",
+{
+  "name": "homecentr-haraka-relay",
   "version": "1.0.0",
   "description": "",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/homecentr/docker-$$IMAGE_NAME$$.git"
+    "url": "git+https://github.com/homecentr/docker-haraka-relay.git"
   },
-  "author": "",
+  "author": "Lukas Holota",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/homecentr/docker-$$IMAGE_NAME$$/issues"
+  "scripts": {
+    "build": "docker-compose build",
+    "start": "docker-compose up",
+    "test": "jest --testTimeout=60000"
   },
-  "homepage": "https://github.com/homecentr/docker-$$IMAGE_NAME$$#readme"
+  "bugs": {
+    "url": "https://github.com/homecentr/docker-haraka-relay/issues"
+  },
+  "homepage": "https://github.com/homecentr/docker-haraka-relay#readme",
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.22.5",
+    "async-wait-until": "^2.0.12",
+    "axios": "^1.4.0",
+    "got-cjs": "^12.5.4",
+    "jest": "^29.6.2",
+    "nodemailer": "^6.9.4",
+    "testcontainers": "^10.2.0"
+  }
 }
