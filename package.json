@@ -20,7 +20,7 @@
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.22.5",
     "async-wait-until": "^2.0.12",
-    "axios": "^1.4.0",
+    "axios": "^1.6.0",
     "got-cjs": "^12.5.4",
     "jest": "^29.6.2",
     "nodemailer": "^6.9.4",
