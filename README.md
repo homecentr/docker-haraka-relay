@@ -39,4 +39,4 @@ services:
 The container is regularly scanned for vulnerabilities and updated. Further info can be found in the [Security tab](https://github.com/homecentr/docker-haraka-relay/security).
 
 ### Container user
-The container runs as a non-root user with UID/GID 1000 by default.
+The container runs as a non-root user with UID/GID 7000 by default.
